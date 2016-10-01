@@ -1,5 +1,7 @@
 <div class="table-responsive">
     <h2>Accident Tracking</h2>
+    <jhi-alert></jhi-alert>
+    <jhi-alert-error></jhi-alert-error>
 
     <p>There are {{ vm.loggers.length }} loggers.</p>
 
@@ -22,6 +24,8 @@
         </thead>
 
         <tr ng-repeat="accident in vm.accidents | orderBy:date"> <!--TODO CHANGE TO CORRECT PROPERTY-->
+            <td></td>
+
             <td><small>{{logger.name | characters:140}}</small></td>
             <td>
                 <button ng-click="vm.changeLevel(logger.name, 'TRACE')" ng-class="(logger.level=='TRACE') ? 'btn-danger' : 'btn-default'" class="btn btn-default btn-xs">TRACE</button>

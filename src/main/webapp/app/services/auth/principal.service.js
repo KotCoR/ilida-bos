@@ -5,9 +5,9 @@
         .module('hlydaBosApp')
         .factory('Principal', Principal);
 
-    Principal.$inject = ['$q', 'Account', 'JhiTrackerService'];
+    Principal.$inject = ['$q', 'Account', 'JhiTrackerService', 'AccidentsListener'];
 
-    function Principal ($q, Account, JhiTrackerService) {
+    function Principal ($q, Account, JhiTrackerService, AccidentsListener) {
         var _identity,
             _authenticated = false;
 
@@ -80,6 +80,8 @@
                 _authenticated = true;
                 deferred.resolve(_identity);
                 JhiTrackerService.connect();
+                AccidentsListener.connect();
+                AccidentsListener.subscribe();
             }
 
             function getAccountCatch () {

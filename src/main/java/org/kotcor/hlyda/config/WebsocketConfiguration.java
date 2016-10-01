@@ -39,7 +39,13 @@ public class WebsocketConfiguration extends AbstractWebSocketMessageBrokerConfig
 
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
-        registry.addEndpoint("/websocket/tracker")
+        addEndpoint(registry, "/websocket/tracker");
+        addEndpoint(registry, "/websocket/accidents");
+    }
+
+
+    private void addEndpoint(StompEndpointRegistry registry, String endpoint) {
+        registry.addEndpoint(endpoint)
             .setHandshakeHandler(new DefaultHandshakeHandler() {
                 @Override
                 protected Principal determineUser(ServerHttpRequest request, WebSocketHandler wsHandler, Map<String, Object> attributes) {

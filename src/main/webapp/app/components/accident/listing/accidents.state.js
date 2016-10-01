@@ -5,9 +5,9 @@
         .module('hlydaBosApp')
         .config(stateConfig);
 
-    stateConfig.$inject = ['$stateProvider'];
+    stateConfig.$inject = ['$stateProvider'/*, 'Enums'*/];
 
-    function stateConfig($stateProvider) {
+    function stateConfig($stateProvider/*, Enums*/) {
         $stateProvider.state('accidents', {
             parent: 'admin',
             url: '/accidents',
@@ -21,6 +21,13 @@
                     controller: 'AccidentListController',
                     controllerAs: 'vm'
                 }
+            },
+            resolve: {
+                accidents: ['AccidentsService',
+                    function(AccidentsService) {
+                        return AccidentsService.finalAllByStatus({statusId: 2/*Enums.AccidentStatus.inProcces.id*/});
+                    }
+                ]
             }
         });
     }

@@ -1,4 +1,4 @@
-(function() {
+(function () {
     'use strict';
 
     angular
@@ -7,11 +7,26 @@
 
     AccidentsService.$inject = ['$resource'];
 
-    function AccidentsService ($resource) {
-        return $resource('api/accident', {}, {
-            'findOne': {method: 'GET', isArray: false},
+    function AccidentsService($resource) {
+        return $resource('api/accident/:id', {}, {
+            'findOne': {
+                method: 'GET', isArray: false,
+                transformResponse: function (data) {
+                    return angular.fromJson(data);
+                }
+            },
             'findAll': {method: 'GET', isArray: true},
-            'update': {method: 'PUT'}
+            'update': {
+                method: 'PUT',
+                url: 'api/accident',
+                transformResponse: function (data) {
+                    return angular.fromJson(data);
+                }
+            },
+            'finalAllByStatus': {
+                method: 'GET', isArray: true,
+                url: 'api/accident/status/:statusId'
+            }
         });
     }
 })();
